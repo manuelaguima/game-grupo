@@ -1,0 +1,22 @@
+{
+  "name": "game-grupo",
+  "version": "1.0.0",
+  "description": "JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "game"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelaguima/game-grupo.git"
+  },
+  "keywords": [
+    "game"
+  ],
+  "author": "Manuela Guimarães",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/manuelaguima/game-grupo/issues"
+  },
+  "homepage": "https://github.com/manuelaguima/game-grupo#readme"
+}
