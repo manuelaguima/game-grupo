@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/manuelaguima/game-grupo/issues"
   },
-  "homepage": "https://github.com/manuelaguima/game-grupo#readme"
+  "homepage": "https://github.com/manuelaguima/game-grupo#readme",
+  "dependencies": {
+    "jsdom": "^26.0.0"
+  }
 }
