@@ -1,0 +1,102 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jogo de Mapa no VS Code</title>
+    <style>
+        body {
+            font-family: monospace;
+            line-height: 1;
+        }
+        .map {
+            white-space: pre;
+            font-size: 16px;
+        }
+        .player {
+            color: red;
+        }
+        .wall {
+            color: #333;
+            background-color: #333;
+        }
+        .floor {
+            color: #eee;
+            background-color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameMap" class="map"></div>
+    <script>
+        // Mapa do jogo
+        const mapa = [
+            "#######################################################################",
+            "#.......#.......#...............#.........#..........................#",
+            "#.......#.......#...............#.........#..........................#",
+            "#.......#.......#...............#.........#..........................#",
+            "###########.....#################.....#####..........................#",
+            "#.............................................................#......#",
+            "#.............................................................#......#",
+            "#.............................................................#......#",
+            "#.....#######.................................................#......#",
+            "#.....#.....#.................................................#......#",
+            "#.....#.....#.................................................#......#",
+            "#######################################################################"
+        ];
+
+        // Posição do jogador
+        let player = { x: 5, y: 5 };
+
+        // Renderizar mapa
+        function renderMap() {
+            const mapElement = document.getElementById('gameMap');
+            mapElement.innerHTML = '';
+
+            for (let y = 0; y < mapa.length; y++) {
+                const line = document.createElement('div');
+                for (let x = 0; x < mapa[y].length; x++) {
+                    const char = document.createElement('span');
+                    
+                    if (x === player.x && y === player.y) {
+                        char.textContent = 'P';
+                        char.className = 'player';
+                    } else {
+                        char.textContent = mapa[y][x];
+                        if (mapa[y][x] === '#') {
+                            char.className = 'wall';
+                        } else {
+                            char.className = 'floor';
+                        }
+                    }
+                    
+                    line.appendChild(char);
+                }
+                mapElement.appendChild(line);
+            }
+        }
+
+        // Controles
+        document.addEventListener('keydown', (e) => {
+            let newX = player.x
+            let newY = player.y
+
+            switch(e.key) {
+                case 'ArrowUp': newY--; break
+                case 'ArrowDown': newY++; break
+                case 'ArrowLeft': newX--; break
+                case 'ArrowRight': newX++; break
+            }
+
+            // Verificar colisão
+            if (mapa[newY] && mapa[newY][newX] !== '#') {
+                player.x = newX
+                player.y = newY
+                renderMap();
+            }
+        });
+
+        // Iniciar o jogo
+        renderMap()
+    </script>
+</body>
+</html>
