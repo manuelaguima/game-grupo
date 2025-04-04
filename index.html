@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,96 +6,92 @@
         body {
             font-family: monospace;
             line-height: 1;
+            margin: 0; /* Remove margens padrão */
+            height: 100vh; /* Altura total da janela */
+            overflow: hidden; /* Impede a rolagem da página */
+            position: relative;
         }
-        .map {
-            white-space: pre;
-            font-size: 16px;
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover; /* Ajusta a imagem de fundo para cobrir toda a tela */
+            background-position: center;
+            transition: background-image 0.5s ease-in-out; /* Transição suave entre imagens */
         }
         .player {
-            color: red;
-        }
-        .wall {
-            color: #333;
-            background-color: #333;
-        }
-        .floor {
-            color: #eee;
-            background-color: #eee;
+            width: 32px; /* Ajuste o tamanho da imagem do jogador */
+            height: 32px;
+            position: absolute; /* Permite posicionamento baseado em coordenadas */
         }
     </style>
 </head>
 <body>
-    <div id="gameMap" class="map"></div>
+    <div class="background"></div>
     <script>
-        // Mapa do jogo
-        const mapa = [
-            "#######################################################################",
-            "#.......#.......#...............#.........#..........................#",
-            "#.......#.......#...............#.........#..........................#",
-            "#.......#.......#...............#.........#..........................#",
-            "###########.....#################.....#####..........................#",
-            "#.............................................................#......#",
-            "#.............................................................#......#",
-            "#.............................................................#......#",
-            "#.....#######.................................................#......#",
-            "#.....#.....#.................................................#......#",
-            "#.....#.....#.................................................#......#",
-            "#######################################################################"
+        // Lista de imagens de fundo
+        const backgrounds = [
+            './imgs/cidade1.png',
+            './imgs/cidade2.png'
         ];
 
-        // Posição do jogador
-        let player = { x: 5, y: 5 };
+        let currentIndex = 0; // Índice da imagem atual
+        const backgroundDiv = document.querySelector('.background');
 
-        // Renderizar mapa
-        function renderMap() {
-            const mapElement = document.getElementById('gameMap');
-            mapElement.innerHTML = '';
-
-            for (let y = 0; y < mapa.length; y++) {
-                const line = document.createElement('div');
-                for (let x = 0; x < mapa[y].length; x++) {
-                    const char = document.createElement('span');
-                    
-                    if (x === player.x && y === player.y) {
-                        char.textContent = 'P';
-                        char.className = 'player';
-                    } else {
-                        char.textContent = mapa[y][x];
-                        if (mapa[y][x] === '#') {
-                            char.className = 'wall';
-                        } else {
-                            char.className = 'floor';
-                        }
-                    }
-                    
-                    line.appendChild(char);
-                }
-                mapElement.appendChild(line);
-            }
+        // Função para trocar a imagem de fundo
+        function changeBackground() {
+            currentIndex = (currentIndex + 1) % backgrounds.length; // Avança para a próxima imagem
+            backgroundDiv.style.backgroundImage = `url('${backgrounds[currentIndex]}')`;
         }
 
-        // Controles
-        document.addEventListener('keydown', (e) => {
-            let newX = player.x
-            let newY = player.y
+        // Troca a imagem de fundo a cada 1 segundo (1000ms)
+        setInterval(changeBackground, 1000);
 
-            switch(e.key) {
-                case 'ArrowUp': newY--; break
-                case 'ArrowDown': newY++; break
-                case 'ArrowLeft': newX--; break
-                case 'ArrowRight': newX++; break
+        // Renderiza o jogador
+        function renderPlayer() {
+            const playerImg = document.createElement('img');
+            playerImg.src = 'images/player.png'; // Caminho para a imagem do jogador
+            playerImg.className = 'player';
+            playerImg.style.left = `${player.x * 32}px`; // Ajusta a posição x
+            playerImg.style.top = `${player.y * 32}px`; // Ajusta a posição y
+            document.body.appendChild(playerImg);
+        }
+
+        // Controles do jogador
+        document.addEventListener('keydown', (e) => {
+            let newX = player.x;
+            let newY = player.y;
+
+            // Atualiza a posição com base nas teclas pressionadas
+            switch (e.key) {
+                case 'ArrowUp':
+                    newY--;
+                    break;
+                case 'ArrowDown':
+                    newY++;
+                    break;
+                case 'ArrowLeft':
+                    newX--;
+                    break;
+                case 'ArrowRight':
+                    newX++;
+                    break;
             }
 
             // Verificar colisão
-            if (mapa[newY] && mapa[newY][newX] !== '#') {
-                player.x = newX
-                player.y = newY
-                renderMap();
+            if (mapa[newY] && mapa[newY][newX] !== 'wall') { // Verifica se o tile não é uma parede
+                player.x = newX;
+                player.y = newY;
+                // Atualiza a posição do jogador
+                document.querySelector('.player').style.left = `${player.x * 32}px`;
+                document.querySelector('.player').style.top = `${player.y * 32}px`;
             }
         });
 
         // Iniciar o jogo
-        renderMap()
+        renderPlayer();
     </script>
 </body>
 </html>
