@@ -46,3 +46,24 @@ class Player extends obj {
         }
     }
 }
+class Bullet extends obj{
+    speed = 10
+    clickx = -20
+    clicky = -20
+    
+    des_bullet_img() {
+        
+        let img = new Image()
+        img.src = this.a
+        des.drawImage(img, this.x, this.y, this.w, this.h)
+    }
+    mov_bullet() {
+        let dxb = this.clickx - (this.x + this.w / 2)
+        let dyb = this.clicky - (this.y + this.h / 2)
+        let angulo = Math.atan2(dyb, dxb)
+
+        this.y += this.speed * Math.sin(angulo)
+        this.x += this.speed * Math.cos(angulo) 
+    }
+    
+}
