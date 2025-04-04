@@ -13,3 +13,6 @@ canvas{
     bottom: 0;
     border-radius: 20px;
 }
+canvas:hover{
+    cursor: none;
+}

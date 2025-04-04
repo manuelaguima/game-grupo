@@ -67,3 +67,10 @@ class Bullet extends obj{
     }
     
 }
+class Marker extends obj{
+    des_marker_img() {
+        let img = new Image()
+        img.src = this.a
+        des.drawImage(img, this.x, this.y, this.w, this.h)
+    }
+}
