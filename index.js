@@ -28,8 +28,9 @@ document.addEventListener('keyup', (e)=>{
 })
 
 document.onmousemove = function (e) {
-    player.mouseX = e.pageX;
-    player.mouseY = e.pageY;
+    const rect = des.canvas.getBoundingClientRect()
+    player.mouseX = e.clientX - rect.left
+    player.mouseY = e.clientY - rect.top
 }
 
 function desenha(){
@@ -37,6 +38,7 @@ function desenha(){
 }
 function atualiza(){
     player.mov_carro()
+    
 }
 function main(){
     des.clearRect(0,0,420,690)
