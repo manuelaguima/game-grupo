@@ -12,7 +12,8 @@ let player = new Player(225,225,40,40,`./img/${jogador}/${jogador}-upview.png` )
 let bullet = new Bullet(-20,-20,12,12, './img/bullet.png' )
 let marker = new Marker(20,20,20,20, './img/marker.png' )
 let enemy = new Enemy(225,625,40,40, './img/normalzombie-enemy.png' )
-let fastenemy = new fastEnemy(225,625,40,40, './img/fastzombie-enemy.png' )
+let fastenemy = new Enemy(225,625,40,40, './img/fastzombie-enemy.png' )
+fastenemy.speed = 4
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
 
