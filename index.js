@@ -13,10 +13,15 @@ let bullet = new Bullet(-20,-20,12,12, './img/bullet.png' )
 let marker = new Marker(20,20,20,20, './img/marker.png' )
 let enemy = new Enemy(225,625,40,40, './img/normalzombie-enemy.png' )
 let fastenemy = new Enemy(225,625,40,40, './img/fastzombie-enemy.png' )
+
+
 fastenemy.speed = 4
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
+let road = new Background(0,0,420,690,`./img/estrada1.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
 
+let c1 = new obj(689, 868, 100, 45, './assets/carro2.png')
+let c2 = new obj(528, 691, 100, 45, './assets/carro1.png')
 
 let btn1 = new  btn(20,20, 120,120, "./img/arthur/arthur-a01.png")
 let btn2 = new  btn(150,20, 120,120, "./img/francisco/francisco-a01.png")
@@ -117,6 +122,7 @@ function colisao(){
     }     
 }
 function desenha(){
+    road.des_background_img()
     if (playing == 1){
         player.des_img()
         enemy.des_enemy_img()

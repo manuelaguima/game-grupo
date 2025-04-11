@@ -215,3 +215,10 @@ class Medkit extends obj{
         this.y = Math.floor(Math.random() * ((670 - 2 + 1) + 2))
     }
 }
+class Background extends obj{
+    des_background_img() {
+        let img = new Image()
+        img.src = this.a
+        des.drawImage(img, this.x, this.y, this.w, this.h)
+    }
+}
