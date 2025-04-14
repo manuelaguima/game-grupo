@@ -9,15 +9,15 @@ moving = false
 let jogador = 'arthur'
 
 let player = new Player(225,225,40,40,`./img/${jogador}/${jogador}-upview.png` )
-let bullet = new Bullet(-20,-20,12,12, './img/bullet.png' )
 let marker = new Marker(20,20,20,20, './img/marker.png' )
 let enemy = new Enemy(225,625,40,40, './img/normalzombie-enemy.png' )
 let fastenemy = new Enemy(225,625,40,40, './img/fastzombie-enemy.png' )
 
+let ammotext = new Text()
 
 fastenemy.speed = 4
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
-let road = new Background(0,0,420,690,`./img/estrada1.png`)
+let road = new Background(0,0,1024,768,`./img/estrada1.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
 
 let c1 = new obj(689, 868, 100, 45, './assets/carro2.png')
@@ -28,7 +28,7 @@ let btn2 = new  btn(150,20, 120,120, "./img/francisco/francisco-a01.png")
 let btn3 = new  btn(20,150, 120,120, "./img/jf/jf-a01.png")
 let btn4 = new  btn(150,150, 120,120, "./img/manu/manu-a01.png")
 
-let musica = new Audio('./iamfire.mp3')
+let musica = new Audio('./img/konton.mp3')
 let shoot = new Audio('./pistol.mp3')
 
 playing = 0
@@ -63,9 +63,9 @@ document.addEventListener("click", function (e) {
     const clickX = e.clientX - rect.left
     const clickY = e.clientY - rect.top
     if (playing == 1){
-        const originX = player.x + player.w / 2 - bullet.w / 2
-        const originY = player.y + player.h / 2 - bullet.h / 2
-        bullet.shoot(originX, originY, clickX, clickY)
+        const originX = player.x + player.w / 2 - 12 / 2
+        const originY = player.y + player.h / 2 - 12 / 2
+        player.shoot(originX, originY, clickX, clickY)   
         shoot.play()
     }
     else if (playing == 0){
@@ -98,9 +98,11 @@ function colisao(){
                 health.vida -= 1
                 enemy.active = false
             }
-            else if(bullet.colid(enemy)){
-                enemy.active = false
-                bullet.active = false
+            for(let i = player.bullets.length - 1; i >= 0; i--){
+                if(player.bullets[i] && player.bullets[i].colid(enemy)){
+                    enemy.active = false
+                    player.bullets.splice(i, 1)
+                }
             }
         }
         if (fastenemy.active){
@@ -108,9 +110,12 @@ function colisao(){
                 health.vida -= 1
                 fastenemy.active = false
             }
-            else if(bullet.colid(fastenemy)){
-                fastenemy.active = false
-                bullet.active = false
+            for(let i = player.bullets.length - 1; i >= 0; i--){
+                if(player.bullets[i] && player.bullets[i].colid(fastenemy)){
+                    fastenemy.active = false
+                    player.bullets.splice(i, 1)
+                }
+
             }
         }
         if (medkit.active){
@@ -127,8 +132,16 @@ function desenha(){
         player.des_img()
         enemy.des_enemy_img()
         fastenemy.des_enemy_img()
-        bullet.des_bullet_img()
+        for(let i = 0; i < player.bullets.length; i++){
+            player.bullets[i].des_bullet_img()
+        }
         health.des_health_img()
+        
+        if(player.ammo == 0){
+            ammotext.des_text("Reloading...", 120, 60,"black","12px Daydream" )
+        } else{
+            ammotext.des_text("Ammo: " + player.ammo, 120, 60,"black","12px Daydream" )
+        }
         medkit.des_medkit_img()
     } 
     else if (playing == 0){
@@ -149,7 +162,9 @@ function atualiza(){
         enemy.mov_enemy()
         fastenemy.mov_enemy()
         player.mov_carro()
-        bullet.mov_bullet()
+        for(i = 0; i< player.bullets.length; i++){
+            player.bullets[i].mov_bullet()
+        }
         if (enemy.active == false && enemy.respawing == false){
             enemy.respawing = true
             setTimeout(enemy.respawn_enemy(),3000)
@@ -168,7 +183,7 @@ function atualiza(){
     
 }
 function main(){
-    des.clearRect(0,0,420,690)
+    des.clearRect(0,0,1024,768)
     desenha()
     atualiza()
     requestAnimationFrame(main)

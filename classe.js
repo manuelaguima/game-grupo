@@ -7,26 +7,29 @@ class obj{
         this.a = a
     }
     colid(objeto){
-        if((this.x < objeto.x + objeto.w)&&
-          (this.x + this.w > objeto.x)&&
-          (this.y < objeto.y + objeto.h)&&
-          (this.y + this.h > objeto.y)){
-            return true
-        }else{
-            false
-        }
+        return (
+            this.x < objeto.x + objeto.w &&
+            this.x + this.w > objeto.x &&
+            this.y < objeto.y + objeto.h &&
+            this.y + this.h > objeto.y
+        )
     }
 } 
 class Player extends obj {
+    reloading = false
+    ammo = 8
+    tempo = 0
     ydir = 0
     xdir = 0
     mouseX = 0
     mouseY = 0
     vida = 3
     img = new Image()
+
+    bullets = []
+
     constructor(x, y, w, h, a) {
         super(x, y, w, h, a)
-        
     }
     des_img() {
         
@@ -37,6 +40,13 @@ class Player extends obj {
         let dy = this.mouseY - (this.y + this.h / 2)
         let angle = Math.atan2(dy, dx)
         
+        if (this.tempo> 0){
+            this.tempo-=1
+        }
+        if(this.reloading==true && this.tempo == 0){
+            this.ammo = 8
+            this.reloading = false
+        }
         des.save()
         des.translate(this.x + this.w / 2, this.y + this.h / 2)
         des.rotate(angle)
@@ -45,34 +55,47 @@ class Player extends obj {
     }
 
     mov_carro() {
-        this.y += this.ydir
+        this.y += this.ydir 
         if (this.y <= 2) {
             this.y = 2
-        } else if (this.y >= 648) {
-            this.y = 648
+        } else if (this.y >= 745) {
+            this.y = 745
         }
         this.x += this.xdir
         if (this.x <= 2) {
             this.x = 2
-        } else if (this.x >= 382) {
-            this.x = 382
+        } else if (this.x >= 1020) {
+            this.x = 1016
         }
+    }
+    shoot(originX, originY, targetX, targetY) {
+        console.log(this.tempo)
+        if (this.tempo == 0 && this.ammo != 0){
+            this.angulo = Math.atan2(targetY - originY, targetX - originX);
+            const bullet = new Bullet(originX, originY, 12, 12, './img/bullet.png', this.angulo);
+            this.bullets.push(bullet);
+            this.tempo = 24
+            this.ammo -= 1
+            if( this.ammo<=0){
+                this.tempo += 200
+                this.reloading = true
+            }
+            
+        }
+        
     }
 }
 class Bullet extends obj {
-    speed = 10
-    clickx = -90
-    clicky = -90
-    angle = 0
-    
+    speed = 12
+    active = true
 
-    constructor(x, y, w, h, a) {
+    constructor(x, y, w, h, a, angle) {
         super(x, y, w, h, a)
+        this.angle = angle
         this.img = new Image()
         this.img.src = a
-        this.active = false 
+        this.active = true
     }
-
     des_bullet_img() {
         if (!this.active) return;
         des.save()
@@ -81,24 +104,19 @@ class Bullet extends obj {
         des.drawImage(this.img, -this.w / 2, -this.h / 2, this.w, this.h)
         des.restore()
     }
-
+    
     mov_bullet() {
         if (!this.active) return;
         this.x += this.speed * Math.cos(this.angle)
         this.y += this.speed * Math.sin(this.angle)
-
-        if (this.x < 0 || this.x > 420 || this.y < 0 || this.y > 690) {
-            this.active = false
+        if (this.x < 0 || this.x > 1024 || this.y < 0 || this.y > 768) {
+            player.bullets.splice(i, 1)
         }
     }
 
-    shoot(originX, originY, targetX, targetY) {
-        this.x = originX
-        this.y = originY
-        this.angle = Math.atan2(targetY - originY, targetX - originX)
-        this.active = true
-    }
+
 }
+
 class Marker extends obj{
     des_marker_img() {
         let img = new Image()
@@ -107,7 +125,7 @@ class Marker extends obj{
     }
 }
 class Enemy extends obj{
-    speed = 2
+    speed = 3
     rivalx = 20
     rivaly = 20
     active = true
@@ -142,8 +160,8 @@ class Enemy extends obj{
     respawn_enemy(){
         this.active = true
         this.respawing = false
-        this.x = Math.floor(Math.random() * ((416 - 2 + 1) + 2))
-        this.y = Math.floor(Math.random() * ((680 - 2 + 1) + 2))
+        this.x = Math.floor(Math.random() * ((1024 - 2 + 1) + 2))
+        this.y = Math.floor(Math.random() * ((768 - 2 + 1) + 2))
     }
 }
 class Health extends Player{
@@ -152,7 +170,7 @@ class Health extends Player{
     tempo = 0
     des_health_img() {
         this.tempo +=1
-        if(this.tempo > 48){
+        if(this.tempo > 100){
             this.tempo = 0
             this.frame +=1
         }
@@ -211,8 +229,8 @@ class Medkit extends obj{
     respawn_medkit(){
         this.active = true
         this.respawing = false
-        this.x = Math.floor(Math.random() * ((400 - 2 + 1) + 2))
-        this.y = Math.floor(Math.random() * ((670 - 2 + 1) + 2))
+        this.x = Math.floor(Math.random() * ((1015 - 2 + 1) + 2))
+        this.y = Math.floor(Math.random() * ((760 - 2 + 1) + 2))
     }
 }
 class Background extends obj{
@@ -220,5 +238,13 @@ class Background extends obj{
         let img = new Image()
         img.src = this.a
         des.drawImage(img, this.x, this.y, this.w, this.h)
+    }
+}
+class Text{
+    des_text(text,x,y,cor,font){
+        des.fillStyle = cor
+        des.lineWidth = '5'
+        des.font = font
+        des.fillText(text,x,y)
     }
 }
