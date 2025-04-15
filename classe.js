@@ -17,6 +17,8 @@ class obj{
 } 
 class Player extends obj {
     reloading = false
+    direction = 0
+    randangle = 0
     ammo = 8
     tempo = 0
     ydir = 0
@@ -71,11 +73,27 @@ class Player extends obj {
     shoot(originX, originY, targetX, targetY) {
         console.log(this.tempo)
         if (this.tempo == 0 && this.ammo != 0){
-            this.angulo = Math.atan2(targetY - originY, targetX - originX);
-            const bullet = new Bullet(originX, originY, 12, 12, './img/bullet.png', this.angulo);
-            this.bullets.push(bullet);
-            this.tempo = 24
-            this.ammo -= 1
+            if(jogador == "arthur"){
+                this.angulo = Math.atan2(targetY - originY, targetX - originX);
+                const bullet = new Bullet(originX, originY, 12, 12, './img/bullet.png', this.angulo);
+                this.bullets.push(bullet);
+                this.tempo = 24
+                this.ammo -= 1
+            } else if (jogador == "francisco") {
+                this.angulo = Math.atan2(targetY - originY, targetX - originX);
+                for(i=0; i<=3;i++){
+                    this.randangle = Math.random() * 0.25
+                    this.direction = Math.floor(Math.random() * ((2 - 1 + 1) + 1))
+                    if(this.direction % 2 == 0){
+                        this.randangle = this.randangle * -1 
+                    }
+                    const bullet = new Bullet(originX, originY, 12, 12, './img/shotgun_shell.png', this.angulo + (this.randangle));
+                    this.bullets.push(bullet);
+                    this.ammo -= 1
+                }
+                this.tempo = 24
+                
+            }
             if( this.ammo<=0){
                 this.tempo += 200
                 this.reloading = true
@@ -88,7 +106,7 @@ class Player extends obj {
 class Bullet extends obj {
     speed = 12
     active = true
-
+    dintacia = 0
     constructor(x, y, w, h, a, angle) {
         super(x, y, w, h, a)
         this.angle = angle
@@ -109,7 +127,9 @@ class Bullet extends obj {
         if (!this.active) return;
         this.x += this.speed * Math.cos(this.angle)
         this.y += this.speed * Math.sin(this.angle)
-        if (this.x < 0 || this.x > 1024 || this.y < 0 || this.y > 768) {
+        this.dintacia+=1
+        console.log(this.dintacia)
+        if (this.x < 0 || this.x > 1024 || this.y < 0 || this.y > 768 || this.dintacia >= 20) {
             player.bullets.splice(i, 1)
         }
     }

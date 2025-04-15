@@ -66,7 +66,6 @@ document.addEventListener("click", function (e) {
         const originX = player.x + player.w / 2 - 12 / 2
         const originY = player.y + player.h / 2 - 12 / 2
         player.shoot(originX, originY, clickX, clickY)   
-        shoot.play()
     }
     else if (playing == 0){
         if(btn1.colisao(clickX, clickY)){
