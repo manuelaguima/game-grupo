@@ -127,7 +127,10 @@ class Bullet extends obj {
         if (!this.active) return;
         this.x += this.speed * Math.cos(this.angle)
         this.y += this.speed * Math.sin(this.angle)
-        this.dintacia+=1
+        if(jogador == "francisco"){
+            this.dintacia+=1
+        }
+        
         console.log(this.dintacia)
         if (this.x < 0 || this.x > 1024 || this.y < 0 || this.y > 768 || this.dintacia >= 20) {
             player.bullets.splice(i, 1)
