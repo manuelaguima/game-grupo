@@ -5,7 +5,7 @@
     padding:0;
     width:100vw;
     height:100vh;
-    overflow:hidden;
+    overflow :hidden;
 }div{
     width:100vw;
     height:100vh;
@@ -17,12 +17,12 @@
     background-image: url('./deadzone-sprites/index-elements/background-deadzone2.png');
     background-repeat: repeat-x;
     background-position: bottom;
-    animation: lol 5.0s infinite linear;
+    animation: estrada 5.0s infinite linear;
 }#logo{
-    width:400px;
+    width:150px;
     margin: 0 auto;
     position:absolute;
-    top:200px;
+    top:50px;
     left:0;
     bottom:0;
     right:0;
@@ -30,25 +30,13 @@
 }a img{
     width:200px;
     height:80px;
-    margin: 0 auto;
+    margin:0;
     position:absolute;
-    left:0;
+    top:-450px;
+    left:50px;
     bottom:0;
     right:0;
-}#play{    
-    position:absolute;
-    top:1000px;
-    left:0;
-    bottom:0;
-    right:0;
-    animation: play 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 0.5s both;
-}#options{    
-    position:absolute;
-    top:1100px;
-    left:0;
-    bottom:0;
-    right:0;
-	animation: options 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
+    animation: back 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
 }#ceu{
     width:100vw;
     height:665px;
@@ -63,6 +51,25 @@
     background-size: cover;
     background-position: top;
     animation: sky 13.0s infinite linear;
+}article{
+    position:absolute;
+    top:200px;
+    left:6.4vw;
+}.textbox{
+    width: 800px;
+    height:400px;
+    margin:5px 20px;
+    float:left;
+    background-image: url('./deadzone-sprites/index-elements/text-box1.png');
+    background-position: top;
+    background-size: cover;
+    background-repeat: no repeat;
+}.img-title{
+    width:200px;
+    position:relative;
+    top:40px;
+    left:15vw;
+    animation: second-title 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) alternate-reverse;
 }
 
 @keyframes title {
@@ -70,11 +77,11 @@
     }
 
     100%{
-        transform: translateY(-100px);
+        transform: translateY(-30px);
     }
 }
 
-@keyframes lol {
+@keyframes estrada {
     0%{
         background-position-x: 0;
     }
@@ -91,19 +98,19 @@
         background-position-x: -1920px;
     }
 }
-@keyframes play {
+@keyframes back {
     0% {
         transform: translateY(0);
     }
     100% {
-        transform: translateY(-400px);
+        transform: translateY(500px);
     }
 }
-@keyframes options {
-    0% {
-              transform: translateY(0);
+@keyframes second-title {
+    0%{
     }
-    100% {
-              transform: translateY(-400px);
+
+    100%{
+        transform: translateY(-10px);
     }
 }
