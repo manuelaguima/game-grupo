@@ -10,11 +10,7 @@ let jogador = 'arthur'
 
 let player = new Player(225,225,40,40,`./img/${jogador}/${jogador}-upview.png` )
 let enemyspawn = new enemyspawer()
-let enemyspawn1 = new enemyspawer()
-let enemyspawn2 = new enemyspawer()
-let enemyspawn3 = new enemyspawer()
-let enemyspawn4 = new enemyspawer()
-let enemyspawn5 = new enemyspawer()
+
 let marker = new Marker(20,20,20,20, './img/marker.png' )
 let baseball = new Baseball(225,225,50,50,'./img/baseball-bat.png' )
 let ammotext = new Text()
@@ -22,7 +18,7 @@ let ammotext = new Text()
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
 let road = new Background(0,0,1024,768,`./img/estrada1.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
-
+medkit.active = false
 let c1 = new obj(689, 868, 100, 45, './assets/carro2.png')
 let c2 = new obj(528, 691, 100, 45, './assets/carro1.png')
 
@@ -32,7 +28,6 @@ let btn3 = new  btn(20,150, 120,120, "./img/jf/jf-a01.png")
 let btn4 = new  btn(150,150, 120,120, "./img/manu/manu-a01.png")
 
 let musica = new Audio('./img/konton.mp3')
-let shoot = new Audio('./pistol.mp3')
 
 playing = 0
 
@@ -60,6 +55,7 @@ document.onmousemove = function (e) {
     player.mouseY = e.clientY - rect.top
     marker.x = (e.clientX - rect.left) - (marker.w/2)
     marker.y = (e.clientY - rect.top) - (marker.h/2)
+    baseball.get_angle(player.x + player.w / 2 - 12 / 2,player.y + player.h / 2 - 12 / 2,marker.x,marker.y)
 }
 
 document.addEventListener("click", function (e) {
@@ -68,7 +64,7 @@ document.addEventListener("click", function (e) {
     if (playing == 1){
         const originX = player.x + player.w / 2 - 12 / 2
         const originY = player.y + player.h / 2 - 12 / 2
-        if(jogador ==  "arthur" || jogador == "francisco"){
+        if(jogador ==  "arthur" || jogador == "francisco" || jogador == 'manu'){
             player.shoot(originX, originY, clickX, clickY)  
         } else if (jogador == "jf"){
             baseball.active_desactivate(originX, originY,marker.x,marker.y)
@@ -77,15 +73,19 @@ document.addEventListener("click", function (e) {
     else if (playing == 0){
         if(btn1.colisao(clickX, clickY)){
             jogador = 'arthur'
+            player.ammomax = 8
             playing = 1
         }else if(btn2.colisao(clickX, clickY)){
             jogador = 'francisco'
+            player.ammomax = 2
             playing = 1
         }else if(btn3.colisao(clickX, clickY)){
             jogador = 'jf'
+            player.ammomax = 99999
             playing = 1
         }else if(btn4.colisao(clickX, clickY)){
             jogador = 'manu'
+            player.ammomax = 12
             playing = 1
         }
         player.a = `./img/${jogador}/${jogador}-upview.png`
@@ -96,17 +96,24 @@ document.addEventListener("click", function (e) {
 function colisao(){
     if(playing == 1){
         for(let i = enemyspawn.enemys.length - 1; i >= 0; i--){
+            if(baseball.active && enemyspawn.enemys[i].colid(baseball)){
+                enemyspawn.enemys.splice(i, 1)
+            }
             if(enemyspawn.enemys[i] && enemyspawn.enemys[i].colid(player)){
                 health.vida -= 1
                 enemyspawn.enemys.splice(i, 1)
             }
-            if(baseball.active == false && baseball.colid(enemyspawn.enemys[i])){
-                enemyspawn.enemys.splice(i, 1)
-            }
+            
         }
         for(let i = player.bullets.length - 1; i >= 0; i--){
             for(let j = enemyspawn.enemys.length - 1; j >= 0; j--){
                 if(enemyspawn.enemys[j] && player.bullets[i] && enemyspawn.enemys[j].colid(player.bullets[i])){
+                    aposta = Math.floor(Math.random() * ((100 - 1 + 1) + 1))
+                    if (aposta < 25 && !medkit.active && health.vida < 3){
+                        medkit.x = enemyspawn.enemys[j].x
+                        medkit.y = enemyspawn.enemys[j].y
+                        medkit.active = true
+                    }
                     enemyspawn.enemys.splice(j, 1)
                     player.bullets.splice(i, 1)
                 }
@@ -151,11 +158,6 @@ function atualiza(){
     if (playing == 1){
         musica.play()
         enemyspawn.atulizar_timer()
-        enemyspawn1.atulizar_timer()
-        enemyspawn2.atulizar_timer()
-        enemyspawn3.atulizar_timer()
-        enemyspawn4.atulizar_timer()
-        enemyspawn5.atulizar_timer()
         for(i = 0; i< enemyspawn.enemys.length; i++){
             enemyspawn.enemys[i].rivalx = player.x
             enemyspawn.enemys[i].rivaly = player.y
@@ -166,10 +168,6 @@ function atualiza(){
         }
         for(i = 0; i< enemyspawn.enemys.length; i++){
             enemyspawn.enemys[i].mov_enemy()
-        }
-        if (medkit.active == false && medkit.respawing == false && health.vida < 3){
-            medkit.respawing = true
-            setTimeout(medkit.respawn_medkit(),3000)
         }
     colisao()
     }

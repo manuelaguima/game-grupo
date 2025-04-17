@@ -19,7 +19,8 @@ class Player extends obj {
     reloading = false
     direction = 0
     randangle = 0
-    ammo = 8
+    ammomax = 6
+    ammo = this.ammomax
     tempo = 0
     ydir = 0
     xdir = 0
@@ -46,7 +47,7 @@ class Player extends obj {
             this.tempo-=1
         }
         if(this.reloading==true && this.tempo == 0){
-            this.ammo = 8
+            this.ammo = this.ammomax
             this.reloading = false
         }
         des.save()
@@ -90,8 +91,14 @@ class Player extends obj {
                     this.bullets.push(bullet);
                     this.ammo -= 1
                 }
+                this.ammo -= 1
                 this.tempo = 48
                 
+            } else if (jogador == 'manu'){
+                const bullet = new Bullet(originX, originY, 12, 12, './img/knife.png', this.angulo, 60);
+                this.bullets.push(bullet);
+                this.tempo = 24
+                this.ammo -= 1
             }
             if( this.ammo<=0){
                 this.tempo += 200
@@ -125,6 +132,9 @@ class Bullet extends obj {
     }
     
     mov_bullet() {
+        if (jogador ==  "arthur"){
+            this.speed = 24
+        }
         if (!this.active) return;
         this.x += this.speed * Math.cos(this.angle)
         this.y += this.speed * Math.sin(this.angle)
@@ -140,32 +150,36 @@ class Bullet extends obj {
 }
 class Baseball extends obj {
     time = 0
-    centerx = 0
-    centery = 0
     active = false
     angle = 0
     constructor(x, y, w, h, a) {
         super(x, y, w, h, a)
         this.img = new Image()
         this.img.src = a
-        this.active = true
+        this.active = false
+    }
+    get_angle(originX,originY,targetX,targetY){
+        this.angle = Math.atan2(targetY - originY, targetX - originX);
     }
     des_bat_img(centerx,centery) {
-        if (this.active) return;
+        if (!this.active) return;
         des.save()
+        this.x = centerx
+        this.y = centery
         centerx += 25 * Math.cos(this.angle)
         centery += 25 * Math.sin(this.angle)
-        des.translate(centerx + 40 / 2, centery + 40 / 2)
+        this.x = centerx
+        this.y = centery
+        des.translate(centerx +  40 / 2, centery + 40 / 2)
         des.rotate(this.angle)
-        des.drawImage(this.img, -this.w / 2, -this.h / 2, this.w, this.h)
+        des.drawImage(this.img, -this.w / 2, -this.h / 2, this.w , this.h)
         des.restore()
     }
     active_desactivate(originX,originY,targetX,targetY){
-        this.active = false
-        this.angle = Math.atan2(targetY - originY, targetX - originX);
+        this.active = true
         setTimeout(() => {
-            this.active = true
-        }, 1000);
+            this.active = false
+        }, 450);
     }
 
 }
@@ -291,19 +305,11 @@ class btn extends obj{
 class Medkit extends obj{
     active = true
     respawing = false
-    x = Math.floor(Math.random() * ((416 - 2 + 1) + 2))
-    y = Math.floor(Math.random() * ((680 - 2 + 1) + 2))
     des_medkit_img() {
         if (!this.active) return;
         let img = new Image()
         img.src = this.a
         des.drawImage(img, this.x, this.y, this.w, this.h)
-    }
-    respawn_medkit(){
-        this.active = true
-        this.respawing = false
-        this.x = Math.floor(Math.random() * ((1015 - 2 + 1) + 2))
-        this.y = Math.floor(Math.random() * ((760 - 2 + 1) + 2))
     }
 }
 class Background extends obj{
