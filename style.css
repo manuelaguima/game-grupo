@@ -1,4 +1,6 @@
-body{
+*{
+    user-select: none;
+}body{
     margin:0;
     padding:0;
     width:100vw;
@@ -39,14 +41,32 @@ body{
     left:0;
     bottom:0;
     right:0;
-    animation: play 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
+    animation: play 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 0.5s both;
+    transition:0.2s;
 }#options{    
     position:absolute;
     top:1100px;
     left:0;
     bottom:0;
     right:0;
-	animation: options 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.5s both;
+	animation: options 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
+    transition:0.2s;
+}#play:hover{
+    transition:0.2s;
+    position:absolute;
+    top:985px;
+    left:0;
+    bottom:0;
+    right:0;
+    padding-bottom:15px;
+}#options:hover{
+    transition:0.2s;
+    position:absolute;
+    top:1085px;
+    left:0;
+    bottom:0;
+    right:0;    
+    padding-bottom:15px;
 }#ceu{
     width:100vw;
     height:665px;
