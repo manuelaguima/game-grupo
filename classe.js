@@ -73,25 +73,24 @@ class Player extends obj {
     shoot(originX, originY, targetX, targetY) {
         console.log(this.tempo)
         if (this.tempo == 0 && this.ammo != 0){
+        this.angulo = Math.atan2(targetY - originY, targetX - originX);
             if(jogador == "arthur"){
-                this.angulo = Math.atan2(targetY - originY, targetX - originX);
-                const bullet = new Bullet(originX, originY, 12, 12, './img/bullet.png', this.angulo);
+                const bullet = new Bullet(originX, originY, 12, 12, './img/bullet.png', this.angulo, 60);
                 this.bullets.push(bullet);
                 this.tempo = 24
                 this.ammo -= 1
             } else if (jogador == "francisco") {
-                this.angulo = Math.atan2(targetY - originY, targetX - originX);
                 for(i=0; i<=3;i++){
                     this.randangle = Math.random() * 0.25
                     this.direction = Math.floor(Math.random() * ((2 - 1 + 1) + 1))
                     if(this.direction % 2 == 0){
                         this.randangle = this.randangle * -1 
                     }
-                    const bullet = new Bullet(originX, originY, 12, 12, './img/shotgun_shell.png', this.angulo + (this.randangle));
+                    const bullet = new Bullet(originX, originY, 12, 12, './img/shotgun_shell.png', this.angulo + (this.randangle), 20);
                     this.bullets.push(bullet);
                     this.ammo -= 1
                 }
-                this.tempo = 24
+                this.tempo = 48
                 
             }
             if( this.ammo<=0){
@@ -107,9 +106,11 @@ class Bullet extends obj {
     speed = 12
     active = true
     dintacia = 0
-    constructor(x, y, w, h, a, angle) {
+    range = 0
+    constructor(x, y, w, h, a,angle,range) {
         super(x, y, w, h, a)
         this.angle = angle
+        this.range = range
         this.img = new Image()
         this.img.src = a
         this.active = true
@@ -127,24 +128,81 @@ class Bullet extends obj {
         if (!this.active) return;
         this.x += this.speed * Math.cos(this.angle)
         this.y += this.speed * Math.sin(this.angle)
-        if(jogador == "francisco"){
-            this.dintacia+=1
-        }
+        this.dintacia+=1
         
         console.log(this.dintacia)
-        if (this.x < 0 || this.x > 1024 || this.y < 0 || this.y > 768 || this.dintacia >= 20) {
+        if (this.x < 0 || this.x > 1024 || this.y < 0 || this.y > 768 || this.dintacia >= this.range) {
             player.bullets.splice(i, 1)
         }
     }
 
 
 }
+class Baseball extends obj {
+    time = 0
+    centerx = 0
+    centery = 0
+    active = false
+    angle = 0
+    constructor(x, y, w, h, a) {
+        super(x, y, w, h, a)
+        this.img = new Image()
+        this.img.src = a
+        this.active = true
+    }
+    des_bat_img(centerx,centery) {
+        if (this.active) return;
+        des.save()
+        centerx += 25 * Math.cos(this.angle)
+        centery += 25 * Math.sin(this.angle)
+        des.translate(centerx + 40 / 2, centery + 40 / 2)
+        des.rotate(this.angle)
+        des.drawImage(this.img, -this.w / 2, -this.h / 2, this.w, this.h)
+        des.restore()
+    }
+    active_desactivate(originX,originY,targetX,targetY){
+        this.active = false
+        this.angle = Math.atan2(targetY - originY, targetX - originX);
+        setTimeout(() => {
+            this.active = true
+        }, 1000);
+    }
 
+}
 class Marker extends obj{
     des_marker_img() {
         let img = new Image()
         img.src = this.a
         des.drawImage(img, this.x, this.y, this.w, this.h)
+    }
+}
+class enemyspawer{
+    timer = 0
+    coinflip = 0
+    OriginX = 0
+    OriginY = 0
+    enemys = []
+    atulizar_timer(){
+        this.timer+= 1
+        console.log(this.timer)
+        if(this.timer >= 100){
+            console.log("foi")
+            this.timer = 0
+            this.coinflip = Math.floor(Math.random() * ((2 - 1 + 1) + 1))
+            if(this.coinflip == 2){
+                this.OriginX = 0
+            } else{
+                this.OriginX = 1034
+            }
+            this.coinflip = Math.floor(Math.random() * ((2 - 1 + 1) + 1))
+            if(this.coinflip == 2){
+                this.OriginY = 0
+            } else{
+                this.OriginY = 768
+            }
+            const enemy = new Enemy(this.OriginX, this.OriginY, 40, 40, './img/normalzombie-enemy.png');
+            this.enemys.push(enemy)
+        }
     }
 }
 class Enemy extends obj{
@@ -160,7 +218,6 @@ class Enemy extends obj{
     }
 
     des_enemy_img() {
-        if (!this.active) return;
         let dx = this.rivalx - (this.x + this.w / 2)
         let dy = this.rivaly - (this.y + this.h / 2)
         let angle = Math.atan2(dy, dx)
@@ -172,19 +229,12 @@ class Enemy extends obj{
         des.restore()
     }
     mov_enemy(){
-        if (!this.active) return;
         let dx = this.rivalx - (this.x + this.w / 2) + player.w/2
         let dy = this.rivaly - (this.y + this.h / 2) + player.h/2
         let angle = Math.atan2(dy, dx)
 
         this.y += this.speed * Math.sin((angle))
         this.x += this.speed * Math.cos((angle)) 
-    }
-    respawn_enemy(){
-        this.active = true
-        this.respawing = false
-        this.x = Math.floor(Math.random() * ((1024 - 2 + 1) + 2))
-        this.y = Math.floor(Math.random() * ((768 - 2 + 1) + 2))
     }
 }
 class Health extends Player{
