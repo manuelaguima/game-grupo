@@ -60,12 +60,18 @@
     background-position: top;
     animation: sky 13.0s infinite linear;
 }article{
+    width:100vw;
+    height:auto;
+    margin: 0 auto;
     position:absolute;
     top:200px;
-    left:6.4vw;
+    left:4vw;
+    bottom:0;
+    right:0;
+    display:inline-block;
 }.textbox{
-    width: 800px;
-    height:400px;
+    width: 43vw;
+    height:45.5vh;
     margin:5px 20px;
     float:left;
     background-image: url('./deadzone-sprites/index-elements/text-box1.png');
@@ -86,12 +92,6 @@
     width:fit-content;
     font:normal 16px arial;
     margin:0 auto;
-    position:relative;
-    top:7vh;
-    left:0;
-    bottom:0;
-    right:0;
-    display:block
 }#video-manual{
     width: 25vw;
     height: 28vh;
@@ -107,6 +107,20 @@
     animation: manual-img 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) alternate-reverse;
 }#creditos{
     animation: creditos 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.55s alternate-reverse;
+}figcaption{
+    width: 21.5vw;
+    height:auto;
+    margin:0 auto;
+    float:left;
+    position:relative;
+    top:5vh;
+    left:-0.2vw;
+    bottom:0;
+    right:0; 
+    padding:0;
+}#first-cred-p{
+    position:relative;
+    top:6vh;
 }
 
 @keyframes title {
