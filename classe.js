@@ -287,23 +287,6 @@ class Health extends Player{
     }
 }
 
-class btn extends obj{
-
-    des_btn_img() {
-        let img = new Image()
-        img.src = this.a
-        des.drawImage(img, this.x, this.y, this.w, this.h)
-    }
-    colisao(clickX, clickY){
-        if(clickX>this.x && clickX< this.x + this.w ){
-            if(clickY>this.y && clickY< this.y + this.h){
-                return true;        
-            }
-        }
-        return false;
-    }
-}
-
 class Medkit extends obj{
     active = true
     respawing = false
