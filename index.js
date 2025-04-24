@@ -17,8 +17,10 @@ let ammotext = new Text()
 let pointstext = new Text()
 let leveltext = new Text()
 showlevel = false
+
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
 let road = new Background(0,0,1024,768,`./img/rua.png`)
+let gameover = new Background(0,0,1024,768,`./img/game-over.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
 medkit.active = false
 let c1 = new obj(689, 868, 100, 45, './assets/carro2.png')
@@ -130,7 +132,7 @@ function desenha(){
             leveltext.des_text("Level: " + level, 351, 384,'red','36px Daydream')
         }
     } else if (playing == 0){
-        ammotext.des_text("Game Over", 351, 384,"red","36px Daydream" )
+        gameover.des_background_img()
     }
     marker.des_marker_img()
 }
