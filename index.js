@@ -16,16 +16,12 @@ let baseball = new Baseball(225,225,50,50,'./img/baseball-bat.png' )
 let ammotext = new Text()
 
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
-let road = new Background(0,0,1024,768,`./img/estrada1.png`)
+let road = new Background(0,0,1024,768,`./img/estrada.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
 medkit.active = false
 let c1 = new obj(689, 868, 100, 45, './assets/carro2.png')
 let c2 = new obj(528, 691, 100, 45, './assets/carro1.png')
 
-let btn1 = new  btn(20,20, 120,120, "./img/arthur/arthur-a01.png")
-let btn2 = new  btn(150,20, 120,120, "./img/francisco/francisco-a01.png")
-let btn3 = new  btn(20,150, 120,120, "./img/jf/jf-a01.png")
-let btn4 = new  btn(150,150, 120,120, "./img/manu/manu-a01.png")
 
 let musica = new Audio('./img/konton.mp3')
 
@@ -70,27 +66,6 @@ document.addEventListener("click", function (e) {
             baseball.active_desactivate(originX, originY,marker.x,marker.y)
         }
     }
-    else if (playing == 0){
-        if(btn1.colisao(clickX, clickY)){
-            jogador = 'arthur'
-            player.ammomax = 8
-            playing = 1
-        }else if(btn2.colisao(clickX, clickY)){
-            jogador = 'francisco'
-            player.ammomax = 2
-            playing = 1
-        }else if(btn3.colisao(clickX, clickY)){
-            jogador = 'jf'
-            player.ammomax = 99999
-            playing = 1
-        }else if(btn4.colisao(clickX, clickY)){
-            jogador = 'manu'
-            player.ammomax = 12
-            playing = 1
-        }
-        player.a = `./img/${jogador}/${jogador}-upview.png`
-    }
-    
 })
 
 function colisao(){
@@ -139,18 +114,14 @@ function desenha(){
         }
         health.des_health_img()
         baseball.des_bat_img(player.x, player.y)
-        if(player.ammo == 0){
-            ammotext.des_text("Reloading...", 120, 60,"black","12px Daydream" )
+        if(player.ammo <= 0){
+            ammotext.des_text("Reloading...", 120, 60,"red","12px Daydream" )
         } else{
-            ammotext.des_text("Ammo: " + player.ammo, 120, 60,"black","12px Daydream" )
+            ammotext.des_text("Ammo: " + player.ammo, 120, 60,"red","12px Daydream" )
         }
         medkit.des_medkit_img()
-    } 
-    else if (playing == 0){
-        btn1.des_btn_img()
-        btn2.des_btn_img()
-        btn3.des_btn_img()
-        btn4.des_btn_img()
+    } else if (playing == 0){
+        ammotext.des_text("Game Over", 351, 384,"red","36px Daydream" )
     }
     marker.des_marker_img()
 }
@@ -169,8 +140,12 @@ function atualiza(){
         for(i = 0; i< enemyspawn.enemys.length; i++){
             enemyspawn.enemys[i].mov_enemy()
         }
+        if(health.vida <= 0){
+            playing = 0
+        }
     colisao()
     }
+    
     
     
 }
