@@ -6,7 +6,7 @@ let mouseX = 0;
 let mouseY = 0;
 moving = false
 
-let jogador = 'arthur'
+let jogador = localStorage.getItem("personagemSelecionado");
 
 let player = new Player(225,225,40,40,`./img/${jogador}/${jogador}-upview.png` )
 let enemyspawn = new enemyspawer()
@@ -29,7 +29,7 @@ let btn4 = new  btn(150,150, 120,120, "./img/manu/manu-a01.png")
 
 let musica = new Audio('./img/konton.mp3')
 
-playing = 0
+playing = 1
 
 document.addEventListener('keydown',(e)=>{
     if(e.key === 'w'){

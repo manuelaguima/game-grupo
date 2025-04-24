@@ -1,0 +1,475 @@
+*{
+    user-select: none;
+}body{
+    margin:0;
+    padding:0;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+}#fade-in-out{
+    z-index: 9999;
+    margin:0;
+    padding:0;
+    width:100vw;
+    height:100vh;
+}#carro{
+    z-index:-1;
+}.carro{
+    width:200px;
+    display:block;
+    position:absolute;
+    top:730px;
+    left:-300px;
+    bottom:0;
+    right:0;
+}.main-div{
+    z-index: -1;
+    width:100vw;
+    height:100vh;
+    margin:0;   
+    padding:0;
+    position:absolute;
+    top:0;
+    left:0;
+    background-image: url('./deadzone-sprites/index-elements/background-deadzone2.png');
+    background-repeat: repeat-x;
+    background-position: bottom;
+    animation: lol 5.0s infinite linear;
+}figcaption{
+    width:100vw;
+    display:flex;
+    justify-content: center;
+    margin-top:50px;
+    font: normal 16px arial;
+    color:white;
+}#logo{
+    width:150px;
+    margin: 0 auto;
+    animation: title 1.0s infinite cubic-bezier(0.6,-0.08, 0.43, 1.01) alternate-reverse;
+    display:block;
+}#button-back{
+    width:200px;
+    height:80px;
+    margin:0;
+    position:absolute;
+    top:-450px;
+    left:50px;
+    bottom:0;
+    right:0;
+    animation: back 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
+    transition: 0.2s;
+}#button-back:hover{
+    transition: 0.2s;
+    position:absolute;
+    top:-440px;
+    left:50px;
+    bottom:0;
+    right:0;
+    padding-top:10px;
+}.ceu-style{
+    width:100vw;
+    height:665px;
+    margin: 0 auto;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-image: url('./deadzone-sprites/index-elements/deadzone-sky.png');
+    background-repeat: repeat-x;
+    background-size: cover;
+    background-position: top;
+    z-index:-4;
+}.ceu-anim{
+    animation: sky 13.0s infinite linear;
+}.textbox{ 
+    margin: 0 45px;
+    width:20vw;
+    height:400px;
+    position:relative;
+    top:800px;
+    float:left;
+    background-image: url('./deadzone-sprites/index-elements/text-box3.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}.article{
+    width:100vw;
+    height:2000px;
+    position:absolute;
+    top:200px;
+}.char-sprite{
+    width:100px;
+    height:100px;
+    background-color: lightslategrey;
+    border-radius:5px;
+    margin:auto;
+    position:relative;
+    top:25px;
+    left:7.8vw;
+    bottom:0;
+    right:0;
+}.char-name{
+    width:fit-content;
+    height:30px;
+    margin:auto;
+    position:relative;
+    top:40px;
+    left:0;
+    bottom:0;
+    right:0;
+    display:block;
+}.char-full{
+    width:170px;
+    height:170px;
+    margin:0 auto;
+    position:absolute;
+    top:980px;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:-1
+}.weapon-sprite{
+    width:fit-content;
+    height:100px;
+    margin: 40px 0 0 20px;
+    display:block;
+    float:left;
+}.info{
+    font:normal 16px arial;
+    display: inline-block;
+    position: relative;
+    top:40px;
+    left:10px;
+}input{
+    width:30px;
+    height:30px;
+    display:block;
+    margin:0;   
+}.first-input{
+    position:absolute;
+    top:1330px;
+    left:350px;
+    bottom:0;
+    right:0;
+    animation: first-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) both;
+}.second-input{
+    position:absolute;
+    top:1330px;
+    left:805px;
+    bottom:0;
+    right:0;
+    animation: second-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) 0.3s both;
+}.third-input{
+    position:absolute;
+    top:1330px;
+    left:1260px;
+    bottom:0;
+    right:0;
+    animation: third-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) 0.6s both;
+}.fourth-input{
+    position:absolute;
+    top:1330px;
+    left:1715px;
+    bottom:0;
+    right:0;
+    animation: fourth-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) 0.9s both;
+}button{
+    width:450px;
+    height:fit-content;
+    margin: 0 auto;
+    position:absolute;
+    top: 120vh;
+    left:0;
+    bottom:0;
+    right:0;
+    padding:0;
+    background-color: rgba(240, 248, 255, 0);
+    border:0;
+    animation: select 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
+}#select-button{
+    width: 450px;
+    height:fit-content;
+    margin:0;
+    padding:0;
+    position:relative;
+    top:-2px;
+    left:-2px;
+    bottom:0;
+    right:0;
+    transition:0.2s;
+}#select-button:hover{
+    position:relative;
+    top:-17px;
+    left:-2px;
+    bottom:0;
+    right:0;
+    transition:0.2s;
+    padding-bottom:15px;
+}.a-start{
+    width: fit-content;
+    height: fit-content;
+    position:absolute;
+    top:730px;
+    left:1450px;
+    transition:0.2s;    
+}.button-start{
+    width: 300px;
+    height: fit-content;
+}.button-start-display{
+    opacity: 0;
+    display:none;  
+}.a-start:hover{
+    position:absolute;
+    top:715px;
+    left:1450px;
+    padding-bottom:15px;
+    transition:0.2s;
+}#alert{
+    width:100vw;
+    height:fit-content;
+    display:block;
+    font:bold 22px arial;
+    margin: 0 auto;
+    position:absolute;
+    top:170px;
+    left:40vw;
+    right:0;
+    bottom:0;
+}
+
+/* ANIMAÇÕES PARA AS TEXTBOXES */
+
+#first-box{
+    animation: first-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) both;
+}#second-box{
+    animation: second-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) 0.3s both;
+}#third-box{
+    animation: third-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) 0.6s both;
+}#fourth-box{
+    animation: fourth-box 2s cubic-bezier(0, 0.46, 0.34, 1.04) 0.9s both;
+}
+
+/* ANIMAÇÕES PARA OS TÍTULOS*/
+
+#first-anim{
+    animation: first-anim 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) alternate-reverse;
+}#second-anim{
+    animation: second-anim 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.3s alternate-reverse;
+}#third-anim{
+    animation: third-anim 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.6s alternate-reverse;
+}#fourth-anim{
+    animation: fourth-anim 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.9s alternate-reverse;
+}
+
+/* ANIMAÇÕES PARA AS ARMAS*/
+
+#first-weapon{
+    animation: weapon-anim-first 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) alternate-reverse;
+}#second-weapon{
+    animation: weapon-anim-second 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.3s alternate-reverse;
+}#third-weapon{
+    animation: weapon-anim-third 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.6s alternate-reverse;
+}#fourth-weapon{
+    animation: weapon-anim-fourth 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.9s alternate-reverse;
+} 
+
+@keyframes title {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes lol {
+    0%{
+        background-position-x: 0;
+    }
+
+    100%{
+        background-position-x: -1024px;
+    }
+}
+@keyframes sky {
+    0%{
+    }
+
+    100%{
+        background-position-x: -1920px;
+    }
+}
+@keyframes back {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(500px);
+    }
+}
+@keyframes first-anim {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+}
+@keyframes second-anim {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+}
+@keyframes third-anim {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+}
+@keyframes fourth-anim {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+}
+@keyframes weapon-anim-first {
+    0%{
+        transform: rotateZ(10deg);
+    }
+
+    100%{
+        transform: rotateZ(-10deg);
+    }
+}
+@keyframes weapon-anim-second {
+    0%{
+        transform: rotateZ(5deg);
+    }
+
+    100%{
+        transform: rotateZ(-5deg);
+    }
+}
+@keyframes weapon-anim-third {
+    0%{
+        transform: rotateZ(10deg);
+    }
+
+    100%{
+        transform: rotateZ(-10deg);
+    }
+}
+@keyframes weapon-anim-fourth {
+    0%{
+        transform: rotateZ(10deg);
+    }
+
+    100%{
+        transform: rotateZ(-10deg);
+    }
+}
+
+@keyframes first-box {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-800px);
+    }
+}
+@keyframes second-box {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-800px);
+    }
+}
+@keyframes third-box {
+    0%{
+    }    
+
+    100%{
+        transform: translateY(-800px);
+    }    
+}    
+@keyframes fourth-box {
+    0%{
+    }    
+
+    100%{
+        transform: translateY(-800px);
+    }    
+}    
+
+@keyframes select {
+    0%{
+    }    
+
+    100%{
+        transform: translateY(-40vh);
+    }    
+}    
+
+/* ANIMAÇÕES DO JAVASCRIPT */
+
+.textbox-animate2{
+    position:relative;
+    top:-400px;
+    transition:3s;
+}.input-anim{
+    transition:3s;
+    position:relative;
+    top:-300px;
+}.opacity-anim{
+    opacity:0;
+    transition:1s;
+}.opacity-anim2{
+    opacity:0;
+    transition:3s;
+}.ocapity-anim3{
+    opacity:1;
+    transition:1.5s;
+}.display-none{
+    display:none;
+}.display-block{
+    display: block;
+    transition: 1.5s;
+}.carro-animate{
+    margin-left:350px;
+    transition: all 2s;
+}.fade-in{
+    background-color: black;
+    transition: 2s;
+}.fade-out{
+    background-color: rgba(0, 0, 0, 0);
+    transition: 2s;
+}.ceu-stop{
+    animation:none;
+}.div-stop{
+    animation:none;
+    background-size: 1000px;
+}.carro-animate2{
+    width:350px;
+    margin:0 auto;
+    position:absolute;
+    top: 630px;
+    right:150px;
+    bottom:0;
+    left: 0;
+    transition:0s;
+}.char-move{
+    position:absolute;
+    top:580px;
+    left:0;
+    right:0;
+    bottom:0;
+}

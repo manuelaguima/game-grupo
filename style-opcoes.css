@@ -1,0 +1,176 @@
+*{
+    user-select: none;
+}body{
+    margin:0;
+    padding:0;
+    width:100vw;
+    height:100vh;
+    overflow :hidden;
+}div{
+    width:100vw;
+    height:100vh;
+    margin:0;   
+    padding:0;
+    position:absolute;
+    top:0;
+    left:0;
+    background-image: url('./deadzone-sprites/index-elements/background-deadzone2.png');
+    background-repeat: repeat-x;
+    background-position: bottom;
+    animation: estrada 5.0s infinite linear;
+}#logo{
+    width:150px;
+    margin: 0 auto;
+    position:absolute;
+    top:50px;
+    left:0;
+    bottom:0;
+    right:0;
+    animation: title 1.0s infinite cubic-bezier(0.6,-0.08, 0.43, 1.01) alternate-reverse;
+}#back-button{
+    width:200px;
+    height:80px;
+    margin:0;
+    position:absolute;
+    top:-450px;
+    left:50px;
+    bottom:0;
+    right:0;
+    animation: back 3s cubic-bezier(0.13, 0.46, 0.29, 1.02) 1.0s both;
+    transition: 0.2s;
+}#back-button:hover{
+    transition: 0.2s;   
+    position:absolute;
+    top:-435px;
+    left:50px;
+    bottom:0;
+    right:0;
+}#ceu{
+    width:100vw;
+    height:665px;
+    margin: 0 auto;
+    position:absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background-image: url('./deadzone-sprites/index-elements/deadzone-sky.png');
+    background-repeat: repeat-x;
+    background-size: cover;
+    background-position: top;
+    animation: sky 13.0s infinite linear;
+}article{
+    width:100vw;
+    height:auto;
+    margin: 0 auto;
+    position:absolute;
+    top:200px;
+    left:4vw;
+    bottom:0;
+    right:0;
+    display:inline-block;
+}.textbox{
+    width: 43vw;
+    height:45.5vh;
+    margin:5px 20px;
+    float:left;
+    background-image: url('./deadzone-sprites/index-elements/text-box1.png');
+    background-position: top;
+    background-size: cover;
+    background-repeat: no repeat;
+}.img-title{
+    width:200px;
+    margin:0 auto;
+    position:relative;
+    top:5vh;
+    left:0;
+    bottom:0;
+    right:0;
+    display:block;
+}.creditos-p{
+    text-align:center;
+    width:fit-content;
+    font:normal 16px arial;
+    margin:0 auto;
+}#video-manual{
+    width: 25vw;
+    height: 28vh;
+    margin:0 auto;
+    position:relative;
+    top:6vh;
+    left:0;
+    bottom:0;
+    right:0;
+    display:block;
+    border: solid 2px black;
+}#manual{
+    animation: manual-img 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) alternate-reverse;
+}#creditos{
+    animation: creditos 0.5s infinite cubic-bezier(0.45, 0, 0.34, 1.04) 0.55s alternate-reverse;
+}figcaption{
+    width: 21.5vw;
+    height:auto;
+    margin:0 auto;
+    float:left;
+    position:relative;
+    top:5vh;
+    left:-0.2vw;
+    bottom:0;
+    right:0; 
+    padding:0;
+}#first-cred-p{
+    position:relative;
+    top:6vh;
+}
+
+@keyframes title {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-30px);
+    }
+}
+
+@keyframes estrada {
+    0%{
+        background-position-x: 0;
+    }
+
+    100%{
+        background-position-x: -1024px;
+    }
+}
+@keyframes sky {
+    0%{
+    }
+
+    100%{
+        background-position-x: -1920px;
+    }
+}
+@keyframes back {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(500px);
+    }
+}
+@keyframes manual-img {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+}
+@keyframes creditos {
+    0%{
+    }
+
+    100%{
+        transform: translateY(-10px);
+    }
+}
+
