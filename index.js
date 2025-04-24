@@ -14,7 +14,9 @@ let enemyspawn = new enemyspawer()
 let marker = new Marker(20,20,20,20, './img/marker.png' )
 let baseball = new Baseball(225,225,50,50,'./img/baseball-bat.png' )
 let ammotext = new Text()
-
+let pointstext = new Text()
+let leveltext = new Text()
+showlevel = false
 let health = new Health(0,0,120,120,`./img/${jogador}/${jogador}-a01.png`)
 let road = new Background(0,0,1024,768,`./img/estrada.png`)
 let medkit = new Medkit(140,140,40,40,`./img/medkit.png`)
@@ -26,7 +28,7 @@ let c2 = new obj(528, 691, 100, 45, './assets/carro1.png')
 let musica = new Audio('./img/konton.mp3')
 
 playing = 1
-
+level = 1
 document.addEventListener('keydown',(e)=>{
     if(e.key === 'w'){
         player.ydir = -5
@@ -67,7 +69,9 @@ document.addEventListener("click", function (e) {
         }
     }
 })
-
+function sumiu(){
+    showlevel = false
+}
 function colisao(){
     if(playing == 1){
         for(let i = enemyspawn.enemys.length - 1; i >= 0; i--){
@@ -89,6 +93,7 @@ function colisao(){
                         medkit.y = enemyspawn.enemys[j].y
                         medkit.active = true
                     }
+                    player.pontos += 2
                     enemyspawn.enemys.splice(j, 1)
                     player.bullets.splice(i, 1)
                 }
@@ -117,9 +122,13 @@ function desenha(){
         if(player.ammo <= 0){
             ammotext.des_text("Reloading...", 120, 60,"red","12px Daydream" )
         } else{
-            ammotext.des_text("Ammo: " + player.ammo, 120, 60,"red","12px Daydream" )
+            ammotext.des_text("Ammo: " + player.ammo, 120, 40,"red","12px Daydream" )
         }
+        pointstext.des_text("points: " + player.pontos, 120, 80,"red","12px Daydream" )
         medkit.des_medkit_img()
+        if (showlevel == true){
+            leveltext.des_text("Level: " + level, 351, 384,'red','36px Daydream')
+        }
     } else if (playing == 0){
         ammotext.des_text("Game Over", 351, 384,"red","36px Daydream" )
     }
@@ -142,6 +151,13 @@ function atualiza(){
         }
         if(health.vida <= 0){
             playing = 0
+        }
+        if(player.pontos >= 20 && level < 3){
+            enemyspawn.cap -= 25
+            player.pontos = 0
+            level += 1
+            showlevel = true
+            setTimeout(sumiu, 2000)
         }
     colisao()
     }

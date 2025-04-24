@@ -27,6 +27,7 @@ class Player extends obj {
     mouseX = 0
     mouseY = 0
     vida = 3
+    pontos = 0
     img = new Image()
 
     bullets = []
@@ -192,6 +193,7 @@ class Marker extends obj{
 }
 class enemyspawer{
     timer = 0
+    cap = 100
     coinflip = 0
     OriginX = 0
     OriginY = 0
@@ -199,7 +201,7 @@ class enemyspawer{
     atulizar_timer(){
         this.timer+= 1
         console.log(this.timer)
-        if(this.timer >= 100){
+        if(this.timer >= this.cap){
             console.log("foi")
             this.timer = 0
             this.coinflip = Math.floor(Math.random() * ((2 - 1 + 1) + 1))
