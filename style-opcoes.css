@@ -23,7 +23,7 @@
     margin: 0 auto;
     position:absolute;
     top:50px;
-    left:0;
+    left:-40px;
     bottom:0;
     right:0;
     animation: title 1.0s infinite cubic-bezier(0.6,-0.08, 0.43, 1.01) alternate-reverse;
@@ -113,14 +113,14 @@
     margin:0 auto;
     float:left;
     position:relative;
-    top:5vh;
+    top:8vh;
     left:-0.2vw;
     bottom:0;
     right:0; 
     padding:0;
 }#first-cred-p{
     position:relative;
-    top:6vh;
+    top:5vh;
 }
 
 @keyframes title {
