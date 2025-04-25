@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style-jogo.css">
+    <link rel="shortcut icon" href="./deadzone-sprites/index-elements/deadzone-logo.png" type="image/png">
+    <script src="selecao.js" defer></script>
+    <script src="./jogo-animations.js" defer></script>
+    <title>Dead Zone</title>
+</head>
+<body>
+
+    <div id="fade-in-out">
+    
+        <div id="ceu" class="ceu-style ceu-anim"></div>
+
+        <div id="div" class="main-div">
+            
+            <figcaption>
+                
+                <img id="logo" src="./deadzone-sprites/index-elements/deadzone-logo.png"> 
+                
+            </figcaption>
+            <br>
+            <div id="alert"></div>
+
+            <div class="article">
+
+                <div id="first-box" class="textbox">
+                        
+                        <img class="char-sprite" src="./deadzone-sprites/chars/arthur/gif-arthur.gif">
+                        <img class="char-name" id="first-anim" src="./deadzone-sprites/index-elements/text/arthur-name.png">
+
+                        <p class="info">Arma: Revólver<br>Dano: Médio<br>Alcance: Médio<br>Cadência: Média<br> Recarga: Média</p>
+                        <img class="weapon-sprite" id="first-weapon" src="./deadzone-sprites/weapons/revolver.png">
+
+                        <br>
+                        
+                        
+                </div>
+                <div id="second-box" class="textbox">
+                    
+                    <img class="char-sprite" src="./deadzone-sprites/chars/francisco/gif-francisco.gif">
+                    <img class="char-name" id="second-anim" src="./deadzone-sprites/index-elements/text/francisco-name.png">
+                    
+                    <p class="info">Arma: Escopeta<br>Dano: Alto<br>Alcance: Médio<br>Cadência: Média<br> Recarga: Baixa</p>
+                    <img class="weapon-sprite" id="second-weapon" src="./deadzone-sprites/weapons/shotgun.png">
+
+                    <br>
+                    
+                </div>
+                <div id="third-box" class="textbox">
+                    
+                    <img class="char-sprite" src="./deadzone-sprites/chars/jf/gif-jf.gif">
+                    <img class="char-name" id="third-anim" src="./deadzone-sprites/index-elements/text/jf-name.png">
+                    
+                    <p class="info">Arma: Taco de Baseball<br>Dano: Médio<br>Alcance: Baixo<br>Cadência: Médio<br> Recarga: Infinita</p>
+                    <img class="weapon-sprite" id="third-weapon" src="./deadzone-sprites/weapons/baseball-bat.png">
+
+                    <br>
+                    
+                </div>
+                <div id="fourth-box" class="textbox">
+                    
+                    <img class="char-sprite" src="./deadzone-sprites/chars/manu/gif-manu.gif">
+                    <img class="char-name" id="fourth-anim"src="./deadzone-sprites/index-elements/text/manu-name.png">
+                    
+                    <p class="info">Arma: Facas<br>Dano: Baixo<br>Alcance: Alto<br>Cadência: Alta<br> Recarga: Baixo</p>
+                    <img class="weapon-sprite" id="fourth-weapon" src="./deadzone-sprites/weapons/facas.png">
+                    
+                    <br>
+                    
+                </div>
+            </div>   
+        </div>  
+        
+        <!-- Inputs -->
+        <input type="radio" name="char" value="arthur" id="first-input" class="first-input">
+        <input type="radio" name="char" value="francisco" id="second-input" class="second-input">
+        <input type="radio" name="char" value="jf" id="third-input" class="third-input">
+        <input type="radio" name="char" value="manu" id="fourth-input" class="fourth-input">
+        
+        <img id="carro" class="carro" src="./deadzone-sprites/index-elements/carro.png">
+
+        <!-- Char Sprites -->
+        <img id="arthur" class="char-full" src="./deadzone-sprites/index-elements/full-body-chars/arthur.png">
+        <img id="francisco" class="char-full" src="./deadzone-sprites/index-elements/full-body-chars/francisco.png">
+        <img id="jf" class="char-full" src="./deadzone-sprites/index-elements/full-body-chars/jf.png">
+        <img id="manu" class="char-full" src="./deadzone-sprites/index-elements/full-body-chars/manu.png">
+
+        <!-- Buttons -->
+        <a href="./index.html" id="a-back"><img id="button-back" src="./deadzone-sprites/index-elements/back-button.png"></a>
+        <button id="activateAnimation" onclick="funcionado()"><img id="select-button" src="./deadzone-sprites/index-elements/selecionar-button.png"></button>
+        <a href="./jogo.html" id="a-start" class="a-start"><img id="button-start" class="button-start button-start-display" src="./deadzone-sprites/index-elements/start-button.png"></a>
+        
+    </div>
+</body>
+</html>
