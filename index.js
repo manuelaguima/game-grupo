@@ -122,7 +122,7 @@ function desenha(){
         health.des_health_img()
         baseball.des_bat_img(player.x, player.y)
         if(player.ammo <= 0){
-            ammotext.des_text("Reloading...", 120, 60,"red","12px Daydream" )
+            ammotext.des_text("Reloading...", 120, 40,"red","12px Daydream" )
         } else{
             ammotext.des_text("Ammo: " + player.ammo, 120, 40,"red","12px Daydream" )
         }
